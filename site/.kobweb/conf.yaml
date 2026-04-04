@@ -1,0 +1,14 @@
+site:
+  title: "Android FOSS Maker"
+
+server:
+  files:
+    dev:
+      contentRoot: "build/processedResources/js/main/public"
+      script: "build/kotlin-webpack/js/developmentExecutable/maker.js"
+      api: "build/libs/maker.jar"
+    prod:
+      script: "build/kotlin-webpack/js/productionExecutable/maker.js"
+      siteRoot: ".kobweb/site"
+
+  port: 8080
