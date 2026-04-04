@@ -1,8 +1,9 @@
 package io.github.elnix90.android.foss.maker.pages
 
 import androidx.compose.runtime.Composable
-import com.varabyte.kobweb.compose.css.StyleVariable
-import com.varabyte.kobweb.compose.foundation.layout.Box
+import com.varabyte.kobweb.compose.css.Cursor
+import com.varabyte.kobweb.compose.css.Overflow
+import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -17,124 +18,490 @@ import com.varabyte.kobweb.core.init.InitRouteContext
 import com.varabyte.kobweb.core.layout.Layout
 import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.forms.Button
-import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.style.CssStyle
-import com.varabyte.kobweb.silk.style.base
 import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.style.breakpoint.displayIfAtLeast
+import com.varabyte.kobweb.silk.style.selectors.hover
 import com.varabyte.kobweb.silk.style.toAttrs
 import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.ColorPalettes
-import org.jetbrains.compose.web.css.cssRem
-import org.jetbrains.compose.web.css.fr
-import org.jetbrains.compose.web.css.px
-import org.jetbrains.compose.web.css.vh
-import org.jetbrains.compose.web.dom.Div
-import org.jetbrains.compose.web.dom.Text
-import io.github.elnix90.android.foss.maker.HeadlineTextStyle
-import io.github.elnix90.android.foss.maker.SubheadlineTextStyle
 import io.github.elnix90.android.foss.maker.components.layouts.PageLayoutData
 import io.github.elnix90.android.foss.maker.toSitePalette
+import org.jetbrains.compose.web.css.*
+import org.jetbrains.compose.web.dom.*
 
-// Container that has a tagline and grid on desktop, and just the tagline on mobile
 val HeroContainerStyle = CssStyle {
-    base { Modifier.fillMaxWidth().gap(2.cssRem) }
-    Breakpoint.MD { Modifier.margin { top(20.vh) } }
+    base {
+        Modifier
+            .fillMaxWidth()
+            .gap(3.cssRem)
+            .padding(top = 4.cssRem, bottom = 6.cssRem)
+            .position(Position.Relative)
+    }
 }
 
-// A demo grid that appears on the homepage because it looks good
-val HomeGridStyle = CssStyle.base {
-    Modifier
-        .gap(0.5.cssRem)
-        .width(70.cssRem)
-        .height(18.cssRem)
+val HeroContentStyle = CssStyle {
+    base {
+        Modifier
+            .maxWidth(45.cssRem)
+            .gap(1.5.cssRem)
+    }
 }
 
-private val GridCellColorVar by StyleVariable<Color>()
-val HomeGridCellStyle = CssStyle.base {
-    Modifier
-        .backgroundColor(GridCellColorVar.value())
-        .boxShadow(blurRadius = 0.6.cssRem, color = GridCellColorVar.value())
-        .borderRadius(1.cssRem)
+val HeroTitleStyle = CssStyle {
+    base {
+        Modifier
+            .fontSize(4.5.cssRem)
+            .fontWeight(900)
+            .lineHeight(1.1)
+            .textAlign(TextAlign.Start)
+    }
+    Breakpoint.SM {
+        Modifier.fontSize(2.8.cssRem)
+    }
 }
 
-@Composable
-private fun GridCell(color: Color, row: Int, column: Int, width: Int? = null, height: Int? = null) {
-    Div(
-        HomeGridCellStyle.toModifier()
-            .setVariable(GridCellColorVar, color)
-            .gridItem(row, column, width, height)
-            .toAttrs()
-    )
+val HeroSubtitleStyle = CssStyle {
+    base {
+        Modifier
+            .fontSize(1.3.cssRem)
+            .fontWeight(600)
+            .lineHeight(1.4)
+            .textAlign(TextAlign.Start)
+    }
+    Breakpoint.SM {
+        Modifier.fontSize(1.1.cssRem)
+    }
 }
 
+val HeroDescStyle = CssStyle {
+    base {
+        Modifier
+            .fontSize(1.1.cssRem)
+            .lineHeight(1.6)
+            .maxWidth(50.cssRem)
+            .opacity(0.85)
+    }
+}
+
+val HeroCTAStyle = CssStyle {
+    base {
+        Modifier
+            .gap(1.2.cssRem)
+            .flexWrap(FlexWrap.Wrap)
+    }
+    Breakpoint.SM {
+        Modifier.gap(0.8.cssRem)
+    }
+}
+
+val FeaturesGridStyle = CssStyle {
+    base {
+        Modifier
+            .gap(2.cssRem)
+            .margin(topBottom = 4.cssRem)
+    }
+}
+
+val FeatureCardStyle = CssStyle {
+    base {
+        Modifier
+            .padding(2.4.cssRem)
+            .borderRadius(1.2.cssRem)
+            .gap(1.2.cssRem)
+            .cursor(Cursor.Pointer)
+            .position(Position.Relative)
+            .overflow(Overflow.Hidden)
+    }
+
+    hover {
+        Modifier.transform { scale(1.05) }
+    }
+}
+
+val FeatureIconStyle = CssStyle {
+    base {
+        Modifier
+            .fontSize(3.2.cssRem)
+            .lineHeight(1)
+    }
+}
+
+val FeatureTextStyle = CssStyle {
+    base {
+        Modifier.gap(0.8.cssRem)
+    }
+}
+
+val SectionHeaderStyle = CssStyle {
+    base {
+        Modifier
+            .gap(1.2.cssRem)
+            .margin(bottom = 3.5.cssRem)
+            .textAlign(TextAlign.Start)
+    }
+}
+
+val SectionTitleStyle = CssStyle {
+    base {
+        Modifier
+            .fontSize(3.2.cssRem)
+            .fontWeight(700)
+            .lineHeight(1.2)
+    }
+    Breakpoint.SM {
+        Modifier.fontSize(2.2.cssRem)
+    }
+}
+
+val RewardsContainerStyle = CssStyle {
+    base {
+        Modifier
+            .gap(2.5.cssRem)
+            .margin(topBottom = 4.cssRem)
+    }
+}
+
+val RewardItemStyle = CssStyle {
+    base {
+        Modifier
+            .padding(2.2.cssRem)
+            .borderRadius(1.2.cssRem)
+            .border(2.px, LineStyle.Solid)
+            .gap(1.2.cssRem)
+    }
+    hover {
+        Modifier.transform { scale(1.05) }
+    }
+}
+
+val CTASectionStyle = CssStyle {
+    base {
+        Modifier
+            .padding(3.5.cssRem)
+            .borderRadius(1.6.cssRem)
+            .textAlign(TextAlign.Center)
+            .gap(2.cssRem)
+            .margin(topBottom = 4.cssRem)
+    }
+}
 
 @InitRoute
 fun initHomePage(ctx: InitRouteContext) {
-    ctx.data.add(PageLayoutData("Home"))
+    ctx.data.add(PageLayoutData("Android FOSS Maker"))
 }
 
 @Page
 @Layout(".components.layouts.PageLayout")
 @Composable
 fun HomePage() {
-    Row(HeroContainerStyle.toModifier()) {
-        Box {
-            Column(Modifier.gap(2.cssRem)) {
-                Div(HeadlineTextStyle.toAttrs()) {
+    val ctx = rememberPageContext()
+    val sitePalette = ColorMode.current.toSitePalette()
+
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .gap(0.5.cssRem)
+    ) {
+
+        Row(HeroContainerStyle.toModifier()) {
+            Column(HeroContentStyle.toModifier()) {
+                H1(HeroTitleStyle.toAttrs()) {
+                    Text("Android FOSS Maker")
+                }
+
+                // Subtitle/Tagline
+                Div(HeroSubtitleStyle.toAttrs()) {
                     SpanText(
-                        "Android FOSS Maker", Modifier.color(
-                            when (ColorMode.current) {
-                                ColorMode.LIGHT -> Colors.Black
-                                ColorMode.DARK -> Colors.White
-                            }
-                        )
+                        "Build a useful Android app and deploy it on F-Droid to get rewards!",
+                        Modifier.color(sitePalette.brand.primary)
                     )
                 }
 
-                Div(SubheadlineTextStyle.toAttrs()) {
-                    SpanText(
-                        "Build a useful android app and deploy it on F-droid to get rewards!",
-                        Modifier.color(
-                            when (ColorMode.current) {
-                                ColorMode.LIGHT -> Colors.Black
-                                ColorMode.DARK -> Colors.White
-                            }
-                        )
+                // Description
+                P(HeroDescStyle.toAttrs()) {
+                    Text(
+                        "Learn to build complete Android apps using modern development tools. " +
+                                "Combine polished UI with app logic, deploy to F-Droid, and earn rewards " +
+                                "while promoting free and open-source software."
                     )
                 }
 
-                val ctx = rememberPageContext()
-                Button(onClick = {
-                    // Change this click handler with your call-to-action behavior
-                    // here. Link to an order page? Open a calendar UI? Play a movie?
-                    // Up to you!
-                    ctx.router.tryRoutingTo("/about")
-                }, colorPalette = ColorPalettes.Blue) {
-                    Text("This could be your CTA")
+                Row(HeroCTAStyle.toModifier()) {
+                    Button(
+                        onClick = { ctx.router.tryRoutingTo("/getting-started") },
+                        colorPalette = ColorPalettes.Red
+                    ) {
+                        Text("Get Started")
+                    }
+                }
+            }
+
+            // Decorative grid (only on desktop)
+            Div(
+                Modifier
+                    .displayIfAtLeast(Breakpoint.MD)
+                    .width(20.cssRem)
+                    .height(20.cssRem)
+                    .gap(0.4.cssRem)
+                    .toAttrs()
+            ) {
+                repeat(9) {
+                    val colors = listOf(
+                        sitePalette.brand.primary,
+                        sitePalette.brand.accent,
+                        Color.rgb(0xff8c37), // Orange from Hack Club
+                        Color.rgb(0x33d6a6), // Green
+                        Color.rgb(0x5bc0de)  // Cyan
+                    )
+                    Div(
+                        Modifier
+                            .size(5.cssRem)
+                            .backgroundColor(colors[it % colors.size])
+                            .borderRadius(0.6.cssRem)
+                            .toAttrs()
+                    )
                 }
             }
         }
 
-        Div(
-            HomeGridStyle
-                .toModifier()
-                .displayIfAtLeast(Breakpoint.MD)
-                .grid {
-                    rows { repeat(3) { size(1.fr) } }
-                    columns { repeat(5) { size(1.fr) } }
+        // ====================================================================
+        // WHAT YOU'LL LEARN SECTION
+        // ====================================================================
+        Div(Modifier.gap(3.cssRem).fillMaxWidth().toAttrs()) {
+            Div(SectionHeaderStyle.toAttrs()) {
+                H2(SectionTitleStyle.toAttrs()) {
+                    Text("What You'll Learn")
                 }
-                .toAttrs()
+                P(HeroDescStyle.toAttrs()) {
+                    Text(
+                        "Android FOSS Maker guides you through every step of app development, " +
+                                "from choosing your framework to deploying on F-Droid."
+                    )
+                }
+            }
+
+            Row(
+                FeaturesGridStyle.toModifier()
+                    .gap(2.cssRem)
+            ) {
+                val features = listOf(
+                    Triple("📚", "Step-by-Step Guides", "Learn Kotlin + Jetpack Compose or your framework of choice with clear, practical tutorials"),
+                    Triple("⚙️", "Backend Templates", "Use pre-built API templates and example services so you focus on UI and logic"),
+                    Triple("📦", "Deploy to F-Droid", "Complete walkthroughs on packaging your app (.apk/.aab) and publishing to F-Droid"),
+                )
+
+                features.forEach { (icon, title, desc) ->
+                    Column(
+                        FeatureCardStyle.toModifier()
+                            .backgroundColor(sitePalette.nearBackground)
+                            .flex(1)
+                            .minWidth(16.cssRem)
+                    ) {
+                        Div(FeatureIconStyle.toAttrs()) {
+                            Text(icon)
+                        }
+                        Column(FeatureTextStyle.toModifier()) {
+                            H3 { Text(title) }
+                            P { Text(desc) }
+                        }
+                    }
+                }
+            }
+        }
+
+        // ====================================================================
+        // WHY ANDROID FOSS SECTION
+        // ====================================================================
+        Div(Modifier.gap(3.cssRem).fillMaxWidth().toAttrs()) {
+            Div(SectionHeaderStyle.toAttrs()) {
+                H2(SectionTitleStyle.toAttrs()) {
+                    Text("Why Android FOSS Maker?")
+                }
+            }
+
+            Column(Modifier.gap(1.5.cssRem)) {
+                val reasons = listOf(
+                    "Real-world skills using modern frameworks like Jetpack Compose",
+                    "Deploy actual software that people use – get it published on F-Droid",
+                    "Time-tracked progression with Hakatime – prove your impact",
+                    "Keep projects small and focused (under 5 hours) – discover Android dev",
+                    "Join a community of student developers building FOSS",
+                )
+
+                reasons.forEach { reason ->
+                    Row(
+                        Modifier
+                            .gap(1.2.cssRem)
+                            .padding(1.5.cssRem)
+                            .backgroundColor(sitePalette.nearBackground)
+                            .borderRadius(0.8.cssRem)
+                            .alignItems(AlignItems.Center)
+                    ) {
+                        Div(
+                            Modifier
+                                .fontSize(1.5.cssRem)
+                                .flexShrink(0)
+                                .toAttrs()
+                        ) {
+                            Text("✨")
+                        }
+                        P { Text(reason) }
+                    }
+                }
+            }
+        }
+
+        // ====================================================================
+        // REWARDS SECTION
+        // ====================================================================
+        Div(Modifier.gap(3.cssRem).fillMaxWidth().toAttrs()) {
+            Div(SectionHeaderStyle.toAttrs()) {
+                H2(SectionTitleStyle.toAttrs()) {
+                    Text("Earn Rewards")
+                }
+                P(HeroDescStyle.toAttrs()) {
+                    Text("Complete challenges and get rewarded for your hard work")
+                }
+            }
+
+            Column(RewardsContainerStyle.toModifier()) {
+                // F-Droid Published Reward
+                Column(
+                    RewardItemStyle.toModifier()
+                        .border(2.px, LineStyle.Solid, sitePalette.brand.primary)
+                        .backgroundColor(
+                            Color.rgb(0xEC3750).copyf(alpha = 0.08f)
+                        )
+                ) {
+                    Row(Modifier.gap(1.5.cssRem).alignItems(AlignItems.Center)) {
+                        Div(Modifier.fontSize(2.8.cssRem).toAttrs()) { Text("🎁") }
+                        Column(Modifier.gap(0.5.cssRem)) {
+                            H3 { Text("Published to F-Droid") }
+                            P { Text("$50 phone grant (10 hours)") }
+                        }
+                    }
+                    P(Modifier.fontSize(0.95.cssRem).opacity(0.8f).toAttrs()) {
+                        Text("Successfully publish your app to F-Droid and earn a $50 grant towards a new device")
+                    }
+                }
+
+                // Play Store Reward
+                Column(
+                    RewardItemStyle.toModifier()
+                        .border(2.px, LineStyle.Solid,Color.rgb(0x338eda))
+                        .backgroundColor(Color.rgb(0x338eda).copyf(alpha = 0.08f))
+                ) {
+                    Row(Modifier.gap(1.5.cssRem).alignItems(AlignItems.Center)) {
+                        Div(Modifier.fontSize(2.8.cssRem).toAttrs()) { Text("📱") }
+                        Column(Modifier.gap(0.5.cssRem)) {
+                            H3 { Text("Publish to Google Play") }
+                            P { Text("$25 Google Play license (5 hours)") }
+                        }
+                    }
+                    P(Modifier.fontSize(0.95.cssRem).opacity(0.8f).toAttrs()) {
+                        Text("Not accepted to F-Droid yet? Publish on Google Play and get a $25 license grant to help cover the developer account fee")
+                    }
+                }
+
+                // VPS Grant
+                Column(
+                    RewardItemStyle.toModifier()
+                        .border(2.px, LineStyle.Solid, Color.rgb(0x33d6a6))
+                        .backgroundColor(Color.rgb(0x33d6a6).copyf(alpha = 0.08f))
+                ) {
+                    Row(Modifier.gap(1.5.cssRem).alignItems(AlignItems.Center)) {
+                        Div(Modifier.fontSize(2.8.cssRem).toAttrs()) { Text("🖥️") }
+                        Column(Modifier.gap(0.5.cssRem)) {
+                            H3 { Text("VPS Grant (Optional)") }
+                            P { Text("$10 cumulative VPS grant for backend servers") }
+                        }
+                    }
+                    P(Modifier.fontSize(0.95.cssRem).opacity(0.8f).toAttrs()) {
+                        Text("Building an app that needs a backend? Get help covering hosting costs with our VPS grant")
+                    }
+                }
+            }
+        }
+
+        // ====================================================================
+        // TIMELINE SECTION
+        // ====================================================================
+        Div(Modifier.gap(3.cssRem).fillMaxWidth().toAttrs()) {
+            Div(SectionHeaderStyle.toAttrs()) {
+                H2(SectionTitleStyle.toAttrs()) {
+                    Text("How It Works")
+                }
+            }
+
+            Column(Modifier.gap(2.cssRem)) {
+                val steps = listOf(
+                    "Learn" to "Follow our guides and choose your framework (Kotlin + Jetpack Compose or alternatives)",
+                    "Build" to "Use backend templates and focus on creating a small, polished app",
+                    "Deploy" to "Package your app and submit it to F-Droid with our step-by-step guide",
+                    "Track" to "Use Hakatime to log your hours and document your progress",
+                    "Earn" to "Get rewarded based on your achievement level",
+                )
+
+                steps.forEachIndexed { idx, (step, desc) ->
+                    Row(
+                        Modifier
+                            .gap(2.cssRem)
+                            .alignItems(AlignItems.Start)
+                            .padding(2.cssRem)
+                            .backgroundColor(sitePalette.nearBackground)
+                            .borderRadius(1.2.cssRem)
+                    ) {
+                        // Step number circle
+                        Div(
+                            Modifier
+                                .size(3.2.cssRem)
+                                .backgroundColor(sitePalette.brand.primary)
+                                .borderRadius(50.percent)
+                                .display(DisplayStyle.Flex)
+                                .alignItems(AlignItems.Center)
+                                .justifyContent(com.varabyte.kobweb.compose.css.JustifyContent.Center)
+                                .color(Colors.White)
+                                .fontSize(1.5.cssRem)
+                                .fontWeight(700)
+                                .flexShrink(0)
+                                .toAttrs()
+                        ) {
+                            Text((idx + 1).toString())
+                        }
+                        Column(Modifier.gap(0.5.cssRem)) {
+                            H3 { Text(step) }
+                            P(Modifier.opacity(0.85f).toAttrs()) { Text(desc) }
+                        }
+                    }
+                }
+            }
+        }
+
+        // ====================================================================
+        // CALL TO ACTION SECTION
+        // ====================================================================
+        Column(
+            CTASectionStyle.toModifier()
+                .backgroundColor(sitePalette.brand.primary)
+                .color(Colors.White)
         ) {
-            val sitePalette = ColorMode.current.toSitePalette()
-            GridCell(sitePalette.brand.primary, 1, 1, 2, 2)
-            GridCell(ColorPalettes.Monochrome._600, 1, 3)
-            GridCell(ColorPalettes.Monochrome._100, 1, 4, width = 2)
-            GridCell(sitePalette.brand.accent, 2, 3, width = 2)
-            GridCell(ColorPalettes.Monochrome._300, 2, 5)
-            GridCell(ColorPalettes.Monochrome._800, 3, 1, width = 5)
+            H2(SectionTitleStyle.toAttrs()) {
+                Text("Ready to build your first app?")
+            }
+            P(HeroDescStyle.toAttrs()) {
+                Text("Join Android FOSS Maker and start your journey as a student developer")
+            }
+            Row(HeroCTAStyle.toModifier().justifyContent(com.varabyte.kobweb.compose.css.JustifyContent.Center)) {
+                Button(
+                    onClick = { ctx.router.tryRoutingTo("/getting-started") },
+                    colorPalette = ColorPalettes.Yellow
+                ) {
+                    Text("Get Started Now")
+                }
+            }
         }
     }
 }

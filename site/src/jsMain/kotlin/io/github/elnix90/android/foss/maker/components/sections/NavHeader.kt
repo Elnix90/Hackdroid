@@ -31,12 +31,12 @@ import com.varabyte.kobweb.silk.style.breakpoint.displayIfAtLeast
 import com.varabyte.kobweb.silk.style.breakpoint.displayUntil
 import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import org.jetbrains.compose.web.css.*
 import io.github.elnix90.android.foss.maker.components.widgets.IconButton
 import io.github.elnix90.android.foss.maker.toSitePalette
+import org.jetbrains.compose.web.css.*
 
 val NavHeaderStyle = CssStyle.base {
-    Modifier.fillMaxWidth().padding(1.cssRem)
+    Modifier.fillMaxWidth()
 }
 
 @Composable
@@ -98,11 +98,11 @@ enum class SideMenuState {
 }
 
 @Composable
-fun NavHeader() {
-    Row(NavHeaderStyle.toModifier(), verticalAlignment = Alignment.CenterVertically) {
-        Link("https://kobweb.varabyte.com") {
+fun NavHeader(modifier: Modifier) {
+    Row(NavHeaderStyle.toModifier().then(modifier)) {
+        Link("https://ysws.hackclub.com/") {
             // Block display overrides inline display of the <img> tag, so it calculates centering better
-            Image("/kobweb-logo.png", "Kobweb Logo", Modifier.height(2.cssRem).display(DisplayStyle.Block))
+            Image("/flag-orpheus-top.svg", "Kobweb Logo")
         }
 
         Spacer()

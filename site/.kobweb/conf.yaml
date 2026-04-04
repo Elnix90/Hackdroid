@@ -1,6 +1,5 @@
 site:
   title: "Android FOSS Maker"
-  baseUrl: "https://username.github.io/repo-name"
 
 
 server:
