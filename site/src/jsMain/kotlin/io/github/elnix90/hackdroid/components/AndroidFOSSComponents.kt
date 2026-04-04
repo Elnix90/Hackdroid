@@ -10,7 +10,7 @@ import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.silk.components.forms.Button
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import io.github.elnix90.android.foss.maker.toSitePalette
+import io.github.elnix90.hackdroid.toSitePalette
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 

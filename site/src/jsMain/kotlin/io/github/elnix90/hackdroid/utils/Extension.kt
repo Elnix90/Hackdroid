@@ -1,4 +1,4 @@
-package io.github.elnix90.android.foss.maker.utils
+package io.github.elnix90.hackdroid.utils
 
 import com.varabyte.kobweb.compose.ui.graphics.Color
 

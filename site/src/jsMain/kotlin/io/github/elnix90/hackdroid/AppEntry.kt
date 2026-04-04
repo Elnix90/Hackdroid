@@ -1,4 +1,4 @@
-package io.github.elnix90.android.foss.maker
+package io.github.elnix90.hackdroid
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

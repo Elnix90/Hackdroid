@@ -1,4 +1,4 @@
-package io.github.elnix90.android.foss.maker
+package io.github.elnix90.hackdroid
 
 import com.varabyte.kobweb.compose.css.ScrollBehavior
 import com.varabyte.kobweb.compose.css.TextAlign
@@ -29,11 +29,10 @@ fun initSiteStyles(ctx: InitSilkContext) {
             Modifier.scrollBehavior(ScrollBehavior.Smooth)
         }
     }
-
     ctx.stylesheet.registerStyleBase("body") {
         Modifier
             .fontFamily(
-                "Phantom Sans", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+                "Phantom Sans", "JetBrains Mono", "Roboto", "Oxygen", "Ubuntu",
                 "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "sans-serif"
             )
             .fontSize(18.px)

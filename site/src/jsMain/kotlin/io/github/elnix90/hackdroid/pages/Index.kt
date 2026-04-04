@@ -1,9 +1,8 @@
-package io.github.elnix90.android.foss.maker.pages
+package io.github.elnix90.hackdroid.pages
 
 import androidx.compose.runtime.Composable
-import com.varabyte.kobweb.compose.css.Cursor
-import com.varabyte.kobweb.compose.css.Overflow
-import com.varabyte.kobweb.compose.css.TextAlign
+import com.varabyte.kobweb.compose.css.*
+import com.varabyte.kobweb.compose.css.JustifyContent
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -18,6 +17,8 @@ import com.varabyte.kobweb.core.init.InitRouteContext
 import com.varabyte.kobweb.core.layout.Layout
 import com.varabyte.kobweb.core.rememberPageContext
 import com.varabyte.kobweb.silk.components.forms.Button
+import com.varabyte.kobweb.silk.components.graphics.Image
+import com.varabyte.kobweb.silk.components.navigation.Link
 import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.style.CssStyle
 import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
@@ -27,9 +28,11 @@ import com.varabyte.kobweb.silk.style.toAttrs
 import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.ColorPalettes
-import io.github.elnix90.android.foss.maker.components.layouts.PageLayoutData
-import io.github.elnix90.android.foss.maker.toSitePalette
+import io.github.elnix90.hackdroid.Constants
+import io.github.elnix90.hackdroid.components.layouts.PageLayoutData
+import io.github.elnix90.hackdroid.toSitePalette
 import org.jetbrains.compose.web.css.*
+import org.jetbrains.compose.web.css.AlignItems
 import org.jetbrains.compose.web.dom.*
 
 val HeroContainerStyle = CssStyle {
@@ -56,6 +59,8 @@ val HeroTitleStyle = CssStyle {
             .fontSize(4.5.cssRem)
             .fontWeight(900)
             .lineHeight(1.1)
+            .fontFamily("JetBrains Mono")
+            .textDecorationLine(TextDecorationLine.Underline)
             .textAlign(TextAlign.Start)
     }
     Breakpoint.SM {
@@ -66,13 +71,9 @@ val HeroTitleStyle = CssStyle {
 val HeroSubtitleStyle = CssStyle {
     base {
         Modifier
-            .fontSize(1.3.cssRem)
-            .fontWeight(600)
+            .fontSize(3.cssRem)
             .lineHeight(1.4)
             .textAlign(TextAlign.Start)
-    }
-    Breakpoint.SM {
-        Modifier.fontSize(1.1.cssRem)
     }
 }
 
@@ -83,6 +84,13 @@ val HeroDescStyle = CssStyle {
             .lineHeight(1.6)
             .maxWidth(50.cssRem)
             .opacity(0.85)
+    }
+}
+
+val HeroDescStyleSpecial = CssStyle {
+    base {
+        Modifier
+            .fontWeight(FontWeight.Bold)
     }
 }
 
@@ -190,7 +198,7 @@ val CTASectionStyle = CssStyle {
 
 @InitRoute
 fun initHomePage(ctx: InitRouteContext) {
-    ctx.data.add(PageLayoutData("Android FOSS Maker"))
+    ctx.data.add(PageLayoutData("Hackdroid"))
 }
 
 @Page
@@ -209,15 +217,25 @@ fun HomePage() {
         Row(HeroContainerStyle.toModifier()) {
             Column(HeroContentStyle.toModifier()) {
                 H1(HeroTitleStyle.toAttrs()) {
-                    Text("Android FOSS Maker")
+                    Text(Constants.SITE_NAME)
                 }
 
                 // Subtitle/Tagline
-                Div(HeroSubtitleStyle.toAttrs()) {
-                    SpanText(
-                        "Build a useful Android app and deploy it on F-Droid to get rewards!",
-                        Modifier.color(sitePalette.brand.primary)
-                    )
+                Div(
+                    HeroSubtitleStyle
+                        .toModifier()
+                        .color(sitePalette.brand.primary)
+                        .toAttrs()
+                ) {
+                    SpanText("Build a useful ")
+                    Link("https://f-droid.org/") {
+                        SpanText("Android", HeroDescStyleSpecial.toModifier())
+                    }
+                    SpanText(" app and deploy it on ")
+                    Link("https://f-droid.org/") {
+                        SpanText("F-Droid", HeroDescStyleSpecial.toModifier().whiteSpace(WhiteSpace.NoWrap))
+                    }
+                    SpanText(" to get rewards!")
                 }
 
                 // Description
@@ -248,28 +266,12 @@ fun HomePage() {
                     .gap(0.4.cssRem)
                     .toAttrs()
             ) {
-                repeat(9) {
-                    val colors = listOf(
-                        sitePalette.brand.primary,
-                        sitePalette.brand.accent,
-                        Color.rgb(0xff8c37), // Orange from Hack Club
-                        Color.rgb(0x33d6a6), // Green
-                        Color.rgb(0x5bc0de)  // Cyan
-                    )
-                    Div(
-                        Modifier
-                            .size(5.cssRem)
-                            .backgroundColor(colors[it % colors.size])
-                            .borderRadius(0.6.cssRem)
-                            .toAttrs()
-                    )
+                Link("https://f-droid.org/") {
+                    Image("/ugly-fdroid.png")
                 }
             }
         }
 
-        // ====================================================================
-        // WHAT YOU'LL LEARN SECTION
-        // ====================================================================
         Div(Modifier.gap(3.cssRem).fillMaxWidth().toAttrs()) {
             Div(SectionHeaderStyle.toAttrs()) {
                 H2(SectionTitleStyle.toAttrs()) {
@@ -277,7 +279,7 @@ fun HomePage() {
                 }
                 P(HeroDescStyle.toAttrs()) {
                     Text(
-                        "Android FOSS Maker guides you through every step of app development, " +
+                        "Hackdroid guides you through every step of app development, " +
                                 "from choosing your framework to deploying on F-Droid."
                     )
                 }
@@ -288,9 +290,21 @@ fun HomePage() {
                     .gap(2.cssRem)
             ) {
                 val features = listOf(
-                    Triple("📚", "Step-by-Step Guides", "Learn Kotlin + Jetpack Compose or your framework of choice with clear, practical tutorials"),
-                    Triple("⚙️", "Backend Templates", "Use pre-built API templates and example services so you focus on UI and logic"),
-                    Triple("📦", "Deploy to F-Droid", "Complete walkthroughs on packaging your app (.apk/.aab) and publishing to F-Droid"),
+                    Triple(
+                        "📚",
+                        "Step-by-Step Guides",
+                        "Learn Kotlin + Jetpack Compose or your framework of choice with clear, practical tutorials"
+                    ),
+                    Triple(
+                        "⚙️",
+                        "Backend Templates",
+                        "Use pre-built API templates and example services so you focus on UI and logic"
+                    ),
+                    Triple(
+                        "📦",
+                        "Deploy to F-Droid",
+                        "Complete walkthroughs on packaging your app (.apk/.aab) and publishing to F-Droid"
+                    ),
                 )
 
                 features.forEach { (icon, title, desc) ->
@@ -312,13 +326,11 @@ fun HomePage() {
             }
         }
 
-        // ====================================================================
-        // WHY ANDROID FOSS SECTION
-        // ====================================================================
+
         Div(Modifier.gap(3.cssRem).fillMaxWidth().toAttrs()) {
             Div(SectionHeaderStyle.toAttrs()) {
                 H2(SectionTitleStyle.toAttrs()) {
-                    Text("Why Android FOSS Maker?")
+                    Text("Why Hackdroid?")
                 }
             }
 
@@ -354,9 +366,7 @@ fun HomePage() {
             }
         }
 
-        // ====================================================================
-        // REWARDS SECTION
-        // ====================================================================
+
         Div(Modifier.gap(3.cssRem).fillMaxWidth().toAttrs()) {
             Div(SectionHeaderStyle.toAttrs()) {
                 H2(SectionTitleStyle.toAttrs()) {
@@ -391,7 +401,7 @@ fun HomePage() {
                 // Play Store Reward
                 Column(
                     RewardItemStyle.toModifier()
-                        .border(2.px, LineStyle.Solid,Color.rgb(0x338eda))
+                        .border(2.px, LineStyle.Solid, Color.rgb(0x338eda))
                         .backgroundColor(Color.rgb(0x338eda).copyf(alpha = 0.08f))
                 ) {
                     Row(Modifier.gap(1.5.cssRem).alignItems(AlignItems.Center)) {
@@ -426,9 +436,7 @@ fun HomePage() {
             }
         }
 
-        // ====================================================================
-        // TIMELINE SECTION
-        // ====================================================================
+
         Div(Modifier.gap(3.cssRem).fillMaxWidth().toAttrs()) {
             Div(SectionHeaderStyle.toAttrs()) {
                 H2(SectionTitleStyle.toAttrs()) {
@@ -462,7 +470,7 @@ fun HomePage() {
                                 .borderRadius(50.percent)
                                 .display(DisplayStyle.Flex)
                                 .alignItems(AlignItems.Center)
-                                .justifyContent(com.varabyte.kobweb.compose.css.JustifyContent.Center)
+                                .justifyContent(JustifyContent.Center)
                                 .color(Colors.White)
                                 .fontSize(1.5.cssRem)
                                 .fontWeight(700)
@@ -480,9 +488,7 @@ fun HomePage() {
             }
         }
 
-        // ====================================================================
-        // CALL TO ACTION SECTION
-        // ====================================================================
+
         Column(
             CTASectionStyle.toModifier()
                 .backgroundColor(sitePalette.brand.primary)
@@ -492,9 +498,9 @@ fun HomePage() {
                 Text("Ready to build your first app?")
             }
             P(HeroDescStyle.toAttrs()) {
-                Text("Join Android FOSS Maker and start your journey as a student developer")
+                Text("Join Hackdroid and start your journey as a student developer")
             }
-            Row(HeroCTAStyle.toModifier().justifyContent(com.varabyte.kobweb.compose.css.JustifyContent.Center)) {
+            Row(HeroCTAStyle.toModifier().justifyContent(JustifyContent.Center)) {
                 Button(
                     onClick = { ctx.router.tryRoutingTo("/getting-started") },
                     colorPalette = ColorPalettes.Yellow

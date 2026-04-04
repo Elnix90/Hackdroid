@@ -1,4 +1,4 @@
-package io.github.elnix90.android.foss.maker.components.layouts
+package io.github.elnix90.hackdroid.components.layouts
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -14,15 +14,11 @@ import com.varabyte.kobweb.core.layout.Layout
 import com.varabyte.kobweb.silk.style.CssStyle
 import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.style.toAttrs
-import io.github.elnix90.android.foss.maker.Constants
-import io.github.elnix90.android.foss.maker.components.sections.Footer
-import io.github.elnix90.android.foss.maker.components.sections.NavHeader
+import io.github.elnix90.hackdroid.components.sections.Footer
+import io.github.elnix90.hackdroid.components.sections.NavHeader
+import io.github.elnix90.hackdroid.Constants
 import kotlinx.browser.document
-import org.jetbrains.compose.web.css.Position
-import org.jetbrains.compose.web.css.cssRem
-import org.jetbrains.compose.web.css.fr
-import org.jetbrains.compose.web.css.px
-import org.jetbrains.compose.web.css.vh
+import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.Div
 
 val PageContentStyle = CssStyle {

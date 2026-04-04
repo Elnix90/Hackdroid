@@ -1,4 +1,4 @@
-package io.github.elnix90.android.foss.maker
+package io.github.elnix90.hackdroid
 
 import com.varabyte.kobweb.compose.ui.graphics.Color
 import com.varabyte.kobweb.silk.init.InitSilk

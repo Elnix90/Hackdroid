@@ -1,4 +1,5 @@
 import com.varabyte.kobweb.gradle.application.util.configAsKobwebApplication
+import kotlinx.html.link
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -7,13 +8,16 @@ plugins {
     alias(libs.plugins.kobwebx.markdown)
 }
 
-group = "io.github.elnix90.android.foss.maker"
+group = "io.github.elnix90.hackdroid"
 version = "1.0-SNAPSHOT"
 
 kobweb {
     app {
         index {
-            description.set("Powered by Kobweb")
+            description.set("Hackdroid - Build Android app and deploy them on F-Droid to get rewards!")
+            head.add {
+                link(rel = "stylesheet", href = "/fonts/faces.css")
+            }
         }
     }
 }

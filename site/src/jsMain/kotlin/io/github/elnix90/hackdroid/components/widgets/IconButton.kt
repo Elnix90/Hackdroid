@@ -1,13 +1,13 @@
-package io.github.elnix90.android.foss.maker.components.widgets
+package io.github.elnix90.hackdroid.components.widgets
 
 import androidx.compose.runtime.Composable
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.setVariable
 import com.varabyte.kobweb.silk.components.forms.Button
 import com.varabyte.kobweb.silk.components.forms.ButtonVars
+import io.github.elnix90.hackdroid.CircleButtonVariant
+import io.github.elnix90.hackdroid.UncoloredButtonVariant
 import org.jetbrains.compose.web.css.em
-import io.github.elnix90.android.foss.maker.CircleButtonVariant
-import io.github.elnix90.android.foss.maker.UncoloredButtonVariant
 
 @Composable
 fun IconButton(onClick: () -> Unit, content: @Composable () -> Unit) {

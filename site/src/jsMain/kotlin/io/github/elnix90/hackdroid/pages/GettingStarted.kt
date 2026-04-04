@@ -1,9 +1,10 @@
-package io.github.elnix90.android.foss.maker.pages
+package io.github.elnix90.hackdroid.pages
 
 import androidx.compose.runtime.Composable
 import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Modifier
+import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.core.Page
@@ -15,9 +16,9 @@ import com.varabyte.kobweb.silk.components.text.SpanText
 import com.varabyte.kobweb.silk.style.CssStyle
 import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
-import io.github.elnix90.android.foss.maker.components.layouts.PageLayoutData
-import io.github.elnix90.android.foss.maker.toSitePalette
-import io.github.elnix90.android.foss.maker.utils.copyA
+import io.github.elnix90.hackdroid.components.layouts.PageLayoutData
+import io.github.elnix90.hackdroid.toSitePalette
+import io.github.elnix90.hackdroid.utils.copyA
 import org.jetbrains.compose.web.css.DisplayStyle
 import org.jetbrains.compose.web.css.cssRem
 import org.jetbrains.compose.web.dom.*
@@ -62,7 +63,7 @@ fun GettingStartedPage() {
                     .margin(bottom = 1.5.cssRem)
                     .toAttrs()
             ) {
-                Text("Getting Started with Android FOSS Maker")
+                Text("Getting Started with Hackdroid")
             }
             P(
                 Modifier
@@ -123,7 +124,7 @@ fun GettingStartedPage() {
                     "1",
                     Modifier
                         .backgroundColor(sitePalette.brand.primary)
-                        .color(com.varabyte.kobweb.compose.ui.graphics.Colors.White)
+                        .color(Colors.White)
                         .padding(0.5.cssRem, 1.cssRem)
                         .borderRadius(0.4.cssRem)
                         .display(DisplayStyle.InlineBlock)
@@ -187,7 +188,7 @@ fun GettingStartedPage() {
                     "2",
                     Modifier
                         .backgroundColor(sitePalette.brand.primary)
-                        .color(com.varabyte.kobweb.compose.ui.graphics.Colors.White)
+                        .color(Colors.White)
                         .padding(0.5.cssRem, 1.cssRem)
                         .borderRadius(0.4.cssRem)
                         .display(DisplayStyle.InlineBlock)
@@ -234,7 +235,7 @@ fun GettingStartedPage() {
                     "3",
                     Modifier
                         .backgroundColor(sitePalette.brand.accent)
-                        .color(com.varabyte.kobweb.compose.ui.graphics.Colors.White)
+                        .color(Colors.White)
                         .padding(0.5.cssRem, 1.cssRem)
                         .borderRadius(0.4.cssRem)
                         .display(DisplayStyle.InlineBlock)
@@ -286,7 +287,7 @@ fun GettingStartedPage() {
                     "4",
                     Modifier
                         .backgroundColor(sitePalette.brand.primary)
-                        .color(com.varabyte.kobweb.compose.ui.graphics.Colors.White)
+                        .color(Colors.White)
                         .padding(0.5.cssRem, 1.cssRem)
                         .borderRadius(0.4.cssRem)
                         .display(DisplayStyle.InlineBlock)
@@ -330,7 +331,7 @@ fun GettingStartedPage() {
                     "5",
                     Modifier
                         .backgroundColor(sitePalette.brand.accent)
-                        .color(com.varabyte.kobweb.compose.ui.graphics.Colors.White)
+                        .color(Colors.White)
                         .padding(0.5.cssRem, 1.cssRem)
                         .borderRadius(0.4.cssRem)
                         .display(DisplayStyle.InlineBlock)
@@ -367,7 +368,7 @@ fun GettingStartedPage() {
             Modifier
                 .padding(2.4.cssRem)
                 .backgroundColor(sitePalette.brand.primary)
-                .color(com.varabyte.kobweb.compose.ui.graphics.Colors.White)
+                .color(Colors.White)
                 .borderRadius(1.2.cssRem)
                 .textAlign(TextAlign.Center)
                 .gap(1.5.cssRem)
