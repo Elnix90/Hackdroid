@@ -82,31 +82,28 @@ fun initHomePage(ctx: InitRouteContext) {
 fun HomePage() {
     Row(HeroContainerStyle.toModifier()) {
         Box {
-            val sitePalette = ColorMode.current.toSitePalette()
-
             Column(Modifier.gap(2.cssRem)) {
                 Div(HeadlineTextStyle.toAttrs()) {
                     SpanText(
-                        "Use this template as your starting point for ", Modifier.color(
+                        "Android FOSS Maker", Modifier.color(
                             when (ColorMode.current) {
                                 ColorMode.LIGHT -> Colors.Black
                                 ColorMode.DARK -> Colors.White
                             }
                         )
                     )
-                    SpanText(
-                        "Kobweb",
-                        Modifier
-                            .color(sitePalette.brand.accent)
-                            // Use a shadow so this light-colored word is more visible in light mode
-                            .textShadow(0.px, 0.px, blurRadius = 0.5.cssRem, color = Colors.Gray)
-                    )
                 }
 
                 Div(SubheadlineTextStyle.toAttrs()) {
-                    SpanText("You can read the ")
-                    Link("/about", "About")
-                    SpanText(" page for more information.")
+                    SpanText(
+                        "Build a useful android app and deploy it on F-droid to get rewards!",
+                        Modifier.color(
+                            when (ColorMode.current) {
+                                ColorMode.LIGHT -> Colors.Black
+                                ColorMode.DARK -> Colors.White
+                            }
+                        )
+                    )
                 }
 
                 val ctx = rememberPageContext()
@@ -123,13 +120,13 @@ fun HomePage() {
 
         Div(
             HomeGridStyle
-            .toModifier()
-            .displayIfAtLeast(Breakpoint.MD)
-            .grid {
-                rows { repeat(3) { size(1.fr) } }
-                columns { repeat(5) { size(1.fr) } }
-            }
-            .toAttrs()
+                .toModifier()
+                .displayIfAtLeast(Breakpoint.MD)
+                .grid {
+                    rows { repeat(3) { size(1.fr) } }
+                    columns { repeat(5) { size(1.fr) } }
+                }
+                .toAttrs()
         ) {
             val sitePalette = ColorMode.current.toSitePalette()
             GridCell(sitePalette.brand.primary, 1, 1, 2, 2)
