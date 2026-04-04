@@ -3,6 +3,7 @@ package io.github.elnix90.hackdroid.pages
 import androidx.compose.runtime.Composable
 import com.varabyte.kobweb.compose.css.*
 import com.varabyte.kobweb.compose.css.JustifyContent
+import com.varabyte.kobweb.compose.css.Transition
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Modifier
@@ -29,8 +30,11 @@ import com.varabyte.kobweb.silk.style.toModifier
 import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import com.varabyte.kobweb.silk.theme.colors.ColorPalettes
 import io.github.elnix90.hackdroid.Constants
+import io.github.elnix90.hackdroid.components.FeatureCard
+import io.github.elnix90.hackdroid.components.RewardCard
 import io.github.elnix90.hackdroid.components.layouts.PageLayoutData
 import io.github.elnix90.hackdroid.toSitePalette
+import io.github.elnix90.hackdroid.utils.hackclubIcon
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.css.AlignItems
 import org.jetbrains.compose.web.dom.*
@@ -122,6 +126,11 @@ val FeatureCardStyle = CssStyle {
             .cursor(Cursor.Pointer)
             .position(Position.Relative)
             .overflow(Overflow.Hidden)
+            .minWidth(16.cssRem)
+            .transition(
+                Transition.of("all", 200.ms)
+            )
+
     }
 
     hover {
@@ -179,6 +188,9 @@ val RewardItemStyle = CssStyle {
             .borderRadius(1.2.cssRem)
             .border(2.px, LineStyle.Solid)
             .gap(1.2.cssRem)
+            .transition(
+                Transition.of("all", 200.ms)
+            )
     }
     hover {
         Modifier.transform { scale(1.05) }
@@ -220,7 +232,6 @@ fun HomePage() {
                     Text(Constants.SITE_NAME)
                 }
 
-                // Subtitle/Tagline
                 Div(
                     HeroSubtitleStyle
                         .toModifier()
@@ -238,18 +249,9 @@ fun HomePage() {
                     SpanText(" to get rewards!")
                 }
 
-                // Description
-                P(HeroDescStyle.toAttrs()) {
-                    Text(
-                        "Learn to build complete Android apps using modern development tools. " +
-                                "Combine polished UI with app logic, deploy to F-Droid, and earn rewards " +
-                                "while promoting free and open-source software."
-                    )
-                }
-
                 Row(HeroCTAStyle.toModifier()) {
                     Button(
-                        onClick = { ctx.router.tryRoutingTo("/getting-started") },
+                        onClick = {/* ctx.router.tryRoutingTo("/getting-started")*/ },
                         colorPalette = ColorPalettes.Red
                     ) {
                         Text("Get Started")
@@ -257,7 +259,6 @@ fun HomePage() {
                 }
             }
 
-            // Decorative grid (only on desktop)
             Div(
                 Modifier
                     .displayIfAtLeast(Breakpoint.MD)
@@ -273,221 +274,83 @@ fun HomePage() {
         }
 
         Div(Modifier.gap(3.cssRem).fillMaxWidth().toAttrs()) {
-            Div(SectionHeaderStyle.toAttrs()) {
-                H2(SectionTitleStyle.toAttrs()) {
-                    Text("What You'll Learn")
-                }
-                P(HeroDescStyle.toAttrs()) {
-                    Text(
-                        "Hackdroid guides you through every step of app development, " +
-                                "from choosing your framework to deploying on F-Droid."
-                    )
-                }
-            }
 
             Row(
                 FeaturesGridStyle.toModifier()
                     .gap(2.cssRem)
+                    .alignItems(AlignItems.Stretch)
             ) {
                 val features = listOf(
                     Triple(
-                        "📚",
-                        "Step-by-Step Guides",
-                        "Learn Kotlin + Jetpack Compose or your framework of choice with clear, practical tutorials"
+                        "list-checked".hackclubIcon,
+                        "Setup your environment basics",
+                        "Install Android Studio or Intellij IDEA to start developing "
                     ),
                     Triple(
-                        "⚙️",
-                        "Backend Templates",
-                        "Use pre-built API templates and example services so you focus on UI and logic"
+                        "settings".hackclubIcon,
+                        "Build your app",
+                        "Learn Kotlin + Jetpack Compose to build your incredible idea"
                     ),
                     Triple(
-                        "📦",
+                        "badge-check".hackclubIcon,
                         "Deploy to F-Droid",
-                        "Complete walkthroughs on packaging your app (.apk/.aab) and publishing to F-Droid"
+                        "Submit your app to F-Droid reviewers and pray it is accepted! We'll help you for this step"
                     ),
                 )
 
-                features.forEach { (icon, title, desc) ->
-                    Column(
-                        FeatureCardStyle.toModifier()
-                            .backgroundColor(sitePalette.nearBackground)
-                            .flex(1)
-                            .minWidth(16.cssRem)
-                    ) {
-                        Div(FeatureIconStyle.toAttrs()) {
-                            Text(icon)
-                        }
-                        Column(FeatureTextStyle.toModifier()) {
-                            H3 { Text(title) }
-                            P { Text(desc) }
-                        }
-                    }
+
+                features.forEachIndexed { index, (icon, title, desc) ->
+                    FeatureCard(
+                        number = index + 1,
+                        icon = icon,
+                        title = title,
+                        description = desc,
+                        backgroundColor = sitePalette.nearBackground,
+                        modifier = Modifier.flex(1)
+                    )
                 }
             }
         }
 
 
+
         Div(Modifier.gap(3.cssRem).fillMaxWidth().toAttrs()) {
-            Div(SectionHeaderStyle.toAttrs()) {
-                H2(SectionTitleStyle.toAttrs()) {
-                    Text("Why Hackdroid?")
-                }
+            H2(SectionTitleStyle.toAttrs()) {
+                Text("Earn Rewards")
             }
 
-            Column(Modifier.gap(1.5.cssRem)) {
-                val reasons = listOf(
-                    "Real-world skills using modern frameworks like Jetpack Compose",
-                    "Deploy actual software that people use – get it published on F-Droid",
-                    "Time-tracked progression with Hakatime – prove your impact",
-                    "Keep projects small and focused (under 5 hours) – discover Android dev",
-                    "Join a community of student developers building FOSS",
+
+            Row(
+                RewardsContainerStyle.toModifier()
+                    .fillMaxWidth()
+                    .alignItems(AlignItems.Stretch)
+            ) {
+                RewardCard(
+                    icon = "/vps.png",
+                    reward = "$10 VPS grant for backend servers",
+                    duration = 5,
+                    description = "Building an app that needs a backend? Get help covering hosting costs with our VPS grant",
+                    color = Color.rgb(0x33d6a6),
+                    modifier = Modifier.flex(1)
                 )
-
-                reasons.forEach { reason ->
-                    Row(
-                        Modifier
-                            .gap(1.2.cssRem)
-                            .padding(1.5.cssRem)
-                            .backgroundColor(sitePalette.nearBackground)
-                            .borderRadius(0.8.cssRem)
-                            .alignItems(AlignItems.Center)
-                    ) {
-                        Div(
-                            Modifier
-                                .fontSize(1.5.cssRem)
-                                .flexShrink(0)
-                                .toAttrs()
-                        ) {
-                            Text("✨")
-                        }
-                        P { Text(reason) }
-                    }
-                }
-            }
-        }
-
-
-        Div(Modifier.gap(3.cssRem).fillMaxWidth().toAttrs()) {
-            Div(SectionHeaderStyle.toAttrs()) {
-                H2(SectionTitleStyle.toAttrs()) {
-                    Text("Earn Rewards")
-                }
-                P(HeroDescStyle.toAttrs()) {
-                    Text("Complete challenges and get rewarded for your hard work")
-                }
-            }
-
-            Column(RewardsContainerStyle.toModifier()) {
-                // F-Droid Published Reward
-                Column(
-                    RewardItemStyle.toModifier()
-                        .border(2.px, LineStyle.Solid, sitePalette.brand.primary)
-                        .backgroundColor(
-                            Color.rgb(0xEC3750).copyf(alpha = 0.08f)
-                        )
-                ) {
-                    Row(Modifier.gap(1.5.cssRem).alignItems(AlignItems.Center)) {
-                        Div(Modifier.fontSize(2.8.cssRem).toAttrs()) { Text("🎁") }
-                        Column(Modifier.gap(0.5.cssRem)) {
-                            H3 { Text("Published to F-Droid") }
-                            P { Text("$50 phone grant (10 hours)") }
-                        }
-                    }
-                    P(Modifier.fontSize(0.95.cssRem).opacity(0.8f).toAttrs()) {
-                        Text("Successfully publish your app to F-Droid and earn a $50 grant towards a new device")
-                    }
-                }
-
-                // Play Store Reward
-                Column(
-                    RewardItemStyle.toModifier()
-                        .border(2.px, LineStyle.Solid, Color.rgb(0x338eda))
-                        .backgroundColor(Color.rgb(0x338eda).copyf(alpha = 0.08f))
-                ) {
-                    Row(Modifier.gap(1.5.cssRem).alignItems(AlignItems.Center)) {
-                        Div(Modifier.fontSize(2.8.cssRem).toAttrs()) { Text("📱") }
-                        Column(Modifier.gap(0.5.cssRem)) {
-                            H3 { Text("Publish to Google Play") }
-                            P { Text("$25 Google Play license (5 hours)") }
-                        }
-                    }
-                    P(Modifier.fontSize(0.95.cssRem).opacity(0.8f).toAttrs()) {
-                        Text("Not accepted to F-Droid yet? Publish on Google Play and get a $25 license grant to help cover the developer account fee")
-                    }
-                }
-
-                // VPS Grant
-                Column(
-                    RewardItemStyle.toModifier()
-                        .border(2.px, LineStyle.Solid, Color.rgb(0x33d6a6))
-                        .backgroundColor(Color.rgb(0x33d6a6).copyf(alpha = 0.08f))
-                ) {
-                    Row(Modifier.gap(1.5.cssRem).alignItems(AlignItems.Center)) {
-                        Div(Modifier.fontSize(2.8.cssRem).toAttrs()) { Text("🖥️") }
-                        Column(Modifier.gap(0.5.cssRem)) {
-                            H3 { Text("VPS Grant (Optional)") }
-                            P { Text("$10 cumulative VPS grant for backend servers") }
-                        }
-                    }
-                    P(Modifier.fontSize(0.95.cssRem).opacity(0.8f).toAttrs()) {
-                        Text("Building an app that needs a backend? Get help covering hosting costs with our VPS grant")
-                    }
-                }
-            }
-        }
-
-
-        Div(Modifier.gap(3.cssRem).fillMaxWidth().toAttrs()) {
-            Div(SectionHeaderStyle.toAttrs()) {
-                H2(SectionTitleStyle.toAttrs()) {
-                    Text("How It Works")
-                }
-            }
-
-            Column(Modifier.gap(2.cssRem)) {
-                val steps = listOf(
-                    "Learn" to "Follow our guides and choose your framework (Kotlin + Jetpack Compose or alternatives)",
-                    "Build" to "Use backend templates and focus on creating a small, polished app",
-                    "Deploy" to "Package your app and submit it to F-Droid with our step-by-step guide",
-                    "Track" to "Use Hakatime to log your hours and document your progress",
-                    "Earn" to "Get rewarded based on your achievement level",
+                RewardCard(
+                    icon = "/google-play.png",
+                    reward = "$25 Google Play license",
+                    duration = 10,
+                    description = "Not accepted to F-Droid yet? Publish on Google Play and get a $25 license grant to help cover the developer account fee",
+                    color = Color.rgb(0x338eda),
+                    modifier = Modifier.flex(1)
                 )
-
-                steps.forEachIndexed { idx, (step, desc) ->
-                    Row(
-                        Modifier
-                            .gap(2.cssRem)
-                            .alignItems(AlignItems.Start)
-                            .padding(2.cssRem)
-                            .backgroundColor(sitePalette.nearBackground)
-                            .borderRadius(1.2.cssRem)
-                    ) {
-                        // Step number circle
-                        Div(
-                            Modifier
-                                .size(3.2.cssRem)
-                                .backgroundColor(sitePalette.brand.primary)
-                                .borderRadius(50.percent)
-                                .display(DisplayStyle.Flex)
-                                .alignItems(AlignItems.Center)
-                                .justifyContent(JustifyContent.Center)
-                                .color(Colors.White)
-                                .fontSize(1.5.cssRem)
-                                .fontWeight(700)
-                                .flexShrink(0)
-                                .toAttrs()
-                        ) {
-                            Text((idx + 1).toString())
-                        }
-                        Column(Modifier.gap(0.5.cssRem)) {
-                            H3 { Text(step) }
-                            P(Modifier.opacity(0.85f).toAttrs()) { Text(desc) }
-                        }
-                    }
-                }
+                RewardCard(
+                    icon = "/graphene-phone.png",
+                    reward = "$50 phone grant",
+                    duration = 20,
+                    description = "Successfully publish your app to F-Droid and earn a $50 grant towards a new device",
+                    color = Color.rgb(0xEC3750),
+                    modifier = Modifier.flex(1)
+                )
             }
         }
-
 
         Column(
             CTASectionStyle.toModifier()
@@ -498,7 +361,7 @@ fun HomePage() {
                 Text("Ready to build your first app?")
             }
             P(HeroDescStyle.toAttrs()) {
-                Text("Join Hackdroid and start your journey as a student developer")
+                Text("Join #Hackdroid on Slack and start your journey into Android dev!")
             }
             Row(HeroCTAStyle.toModifier().justifyContent(JustifyContent.Center)) {
                 Button(
