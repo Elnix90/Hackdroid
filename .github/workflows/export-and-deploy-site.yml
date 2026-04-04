@@ -34,14 +34,25 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
+      - name: Query Browser Cache ID
+        id: browser-cache-id
+        run: echo "value=$(./gradlew -q :site:kobwebBrowserCacheId)" >> $GITHUB_OUTPUT
+
+      - name: Cache Browser Dependencies
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ steps.browser-cache-id.outputs.value }}
+
       - name: Export site
         run: |
-          ./gradlew :site:kobwebExport --no-daemon
+          ./gradlew :site:kobwebExport -PkobwebExportLayout=STATIC --no-daemon
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: '.kobweb/site'
+          path: 'site/.kobweb/site'
   
   deploy:
     environment:
