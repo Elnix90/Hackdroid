@@ -15,6 +15,7 @@ import com.varabyte.kobweb.core.init.InitRoute
 import com.varabyte.kobweb.core.init.InitRouteContext
 import com.varabyte.kobweb.core.layout.Layout
 import com.varabyte.kobweb.core.rememberPageContext
+import com.varabyte.kobweb.navigation.OpenLinkStrategy
 import com.varabyte.kobweb.silk.components.forms.Button
 import com.varabyte.kobweb.silk.components.graphics.Image
 import com.varabyte.kobweb.silk.components.navigation.Link
@@ -216,7 +217,6 @@ fun initHomePage(ctx: InitRouteContext) {
 }
 
 
-
 @Composable
 fun GetStartedButton() {
     val ctx = rememberPageContext()
@@ -257,11 +257,17 @@ fun HomePage() {
                         .toAttrs()
                 ) {
                     SpanText("Build a useful ")
-                    Link("https://f-droid.org/") {
+                    Link(
+                        "https://f-droid.org/",
+                        openExternalLinksStrategy = OpenLinkStrategy.IN_NEW_TAB
+                    ) {
                         SpanText("Android", HeroDescStyleSpecial.toModifier())
                     }
                     SpanText(" app and deploy it on ")
-                    Link("https://f-droid.org/") {
+                    Link(
+                        "https://f-droid.org/",
+                        openExternalLinksStrategy = OpenLinkStrategy.IN_NEW_TAB
+                    ) {
                         SpanText("F-Droid", HeroDescStyleSpecial.toModifier().whiteSpace(WhiteSpace.NoWrap))
                     }
                     SpanText(" to get rewards!")
