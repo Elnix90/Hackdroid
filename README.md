@@ -7,6 +7,8 @@ Build a useful Android app and deploy it on F-Droid to get rewards!
 
 Hackdroid helps students create FOSS Android apps and share them on F-Droid to grow the open-source community.
 
+**The get started button does nothing, it's normal, the site is just a front end for the project idea**
+
 ## The Process
 
 Students will:
