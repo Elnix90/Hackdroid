@@ -1,4 +1,7 @@
-# HackDroid ![Hackdroid icon](https://github.com/Elnix90/Hackdroid/blob/c8b435a60ef9f2b30597671d6b1cc58e2660bdd3/site/src/jsMain/resources/public/ugly-fdroid.png)
+<div align="center">
+# HackDroid 
+<img src="https://github.com/Elnix90/Hackdroid/blob/c8b435a60ef9f2b30597671d6b1cc58e2660bdd3/site/src/jsMain/resources/public/ugly-fdroid.png" alt="Hackdroid icon" width="20%"/>
+</div>
 
 Build a useful Android app and deploy it on F-Droid to get rewards!
 
