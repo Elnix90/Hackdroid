@@ -223,7 +223,7 @@ fun GetStartedButton() {
 
     Row(HeroCTAStyle.toModifier()) {
         Button(
-            onClick = { ctx.router.tryRoutingTo("/getting-started") },
+            onClick = { ctx.router.tryRoutingTo("getting-started") },
             colorPalette = ColorPalettes.Red
         ) {
             Text("Get Started")
@@ -285,7 +285,7 @@ fun HomePage() {
                     .toAttrs()
             ) {
                 Link("https://f-droid.org/") {
-                    Image("/ugly-fdroid.png")
+                    Image("ugly-fdroid.png")
                 }
             }
         }
@@ -343,7 +343,7 @@ fun HomePage() {
                     .alignItems(AlignItems.Stretch)
             ) {
                 RewardCard(
-                    icon = "/vps.png",
+                    icon = "vps.png",
                     reward = "$10 VPS grant for backend servers",
                     duration = 5,
                     description = "Building an app that needs a backend? Get help covering hosting costs with our VPS grant",
@@ -351,7 +351,7 @@ fun HomePage() {
                     modifier = Modifier.flex(1)
                 )
                 RewardCard(
-                    icon = "/google-play.png",
+                    icon = "google-play.png",
                     reward = "$25 Google Play license",
                     duration = 10,
                     description = "Not accepted to F-Droid yet? Publish on Google Play and get a $25 license grant to help cover the developer account fee",
@@ -359,7 +359,7 @@ fun HomePage() {
                     modifier = Modifier.flex(1)
                 )
                 RewardCard(
-                    icon = "/graphene-phone.png",
+                    icon = "graphene-phone.png",
                     reward = "$50 phone grant",
                     duration = 20,
                     description = "Successfully publish your app to F-Droid and earn a $50 grant towards a new device",
