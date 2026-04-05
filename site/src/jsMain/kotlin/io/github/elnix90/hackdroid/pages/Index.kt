@@ -223,7 +223,7 @@ fun GetStartedButton() {
 
     Row(HeroCTAStyle.toModifier()) {
         Button(
-            onClick = { ctx.router.tryRoutingTo("getting-started") },
+            onClick = { /*ctx.router.tryRoutingTo("getting-started")*/ },
             colorPalette = ColorPalettes.Red
         ) {
             Text("Get Started")
