@@ -30,4 +30,5 @@ kotlin-js-store
 
 # Intelij Idea config folders
 .idea
-site/.kobweb
+
+site/.kobweb/site
