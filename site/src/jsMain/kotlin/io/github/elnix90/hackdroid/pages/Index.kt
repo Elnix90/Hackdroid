@@ -2,13 +2,11 @@ package io.github.elnix90.hackdroid.pages
 
 import androidx.compose.runtime.Composable
 import com.varabyte.kobweb.compose.css.*
-import com.varabyte.kobweb.compose.css.JustifyContent
 import com.varabyte.kobweb.compose.css.Transition
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.graphics.Color
-import com.varabyte.kobweb.compose.ui.graphics.Colors
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.compose.ui.toAttrs
 import com.varabyte.kobweb.core.Page
@@ -37,7 +35,10 @@ import io.github.elnix90.hackdroid.toSitePalette
 import io.github.elnix90.hackdroid.utils.hackclubIcon
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.css.AlignItems
-import org.jetbrains.compose.web.dom.*
+import org.jetbrains.compose.web.dom.Div
+import org.jetbrains.compose.web.dom.H1
+import org.jetbrains.compose.web.dom.H2
+import org.jetbrains.compose.web.dom.Text
 
 val HeroContainerStyle = CssStyle {
     base {
@@ -200,6 +201,7 @@ val RewardItemStyle = CssStyle {
 val CTASectionStyle = CssStyle {
     base {
         Modifier
+            .fillMaxWidth()
             .padding(3.5.cssRem)
             .borderRadius(1.6.cssRem)
             .textAlign(TextAlign.Center)
@@ -212,6 +214,22 @@ val CTASectionStyle = CssStyle {
 fun initHomePage(ctx: InitRouteContext) {
     ctx.data.add(PageLayoutData("Hackdroid"))
 }
+
+
+
+@Composable
+fun GetStartedButton() {
+
+    Row(HeroCTAStyle.toModifier()) {
+        Button(
+            onClick = { },
+            colorPalette = ColorPalettes.Red
+        ) {
+            Text("Get Started")
+        }
+    }
+}
+
 
 @Page
 @Layout(".components.layouts.PageLayout")
@@ -249,14 +267,7 @@ fun HomePage() {
                     SpanText(" to get rewards!")
                 }
 
-                Row(HeroCTAStyle.toModifier()) {
-                    Button(
-                        onClick = {/* ctx.router.tryRoutingTo("/getting-started")*/ },
-                        colorPalette = ColorPalettes.Red
-                    ) {
-                        Text("Get Started")
-                    }
-                }
+                GetStartedButton()
             }
 
             Div(
@@ -349,27 +360,6 @@ fun HomePage() {
                     color = Color.rgb(0xEC3750),
                     modifier = Modifier.flex(1)
                 )
-            }
-        }
-
-        Column(
-            CTASectionStyle.toModifier()
-                .backgroundColor(sitePalette.brand.primary)
-                .color(Colors.White)
-        ) {
-            H2(SectionTitleStyle.toAttrs()) {
-                Text("Ready to build your first app?")
-            }
-            P(HeroDescStyle.toAttrs()) {
-                Text("Join #Hackdroid on Slack and start your journey into Android dev!")
-            }
-            Row(HeroCTAStyle.toModifier().justifyContent(JustifyContent.Center)) {
-                Button(
-                    onClick = { ctx.router.tryRoutingTo("/getting-started") },
-                    colorPalette = ColorPalettes.Yellow
-                ) {
-                    Text("Get Started Now")
-                }
             }
         }
     }

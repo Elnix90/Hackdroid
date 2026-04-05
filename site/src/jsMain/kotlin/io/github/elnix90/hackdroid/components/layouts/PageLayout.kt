@@ -14,9 +14,8 @@ import com.varabyte.kobweb.core.layout.Layout
 import com.varabyte.kobweb.silk.style.CssStyle
 import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.style.toAttrs
-import io.github.elnix90.hackdroid.components.sections.Footer
-import io.github.elnix90.hackdroid.components.sections.NavHeader
 import io.github.elnix90.hackdroid.Constants
+import io.github.elnix90.hackdroid.components.sections.NavHeader
 import kotlinx.browser.document
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.Div
@@ -54,7 +53,5 @@ fun PageLayout(ctx: PageContext, content: @Composable ColumnScope.() -> Unit) {
                 content()
             }
         }
-
-        Footer(Modifier.fillMaxWidth().gridRow(2))
     }
 }
