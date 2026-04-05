@@ -219,10 +219,11 @@ fun initHomePage(ctx: InitRouteContext) {
 
 @Composable
 fun GetStartedButton() {
+    val ctx = rememberPageContext()
 
     Row(HeroCTAStyle.toModifier()) {
         Button(
-            onClick = { },
+            onClick = { ctx.router.tryRoutingTo("/getting-started") },
             colorPalette = ColorPalettes.Red
         ) {
             Text("Get Started")
@@ -235,7 +236,6 @@ fun GetStartedButton() {
 @Layout(".components.layouts.PageLayout")
 @Composable
 fun HomePage() {
-    val ctx = rememberPageContext()
     val sitePalette = ColorMode.current.toSitePalette()
 
     Column(

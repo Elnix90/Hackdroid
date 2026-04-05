@@ -42,7 +42,7 @@ fun NavHeader(modifier: Modifier) {
     Row(NavHeaderStyle.toModifier().then(modifier)) {
         Link("https://ysws.hackclub.com/") {
             // Block display overrides inline display of the <img> tag, so it calculates centering better
-            Image("/flag-orpheus-top.svg", "Kobweb Logo")
+            Image("/flag-orpheus-top.svg", "Hackclub logo")
         }
 
         Spacer()
